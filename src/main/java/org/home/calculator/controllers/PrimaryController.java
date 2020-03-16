@@ -6,7 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import org.home.calculator.App;
+import org.home.calculator.CalculatorApp;
 
 import java.io.IOException;
 import java.net.URL;
@@ -54,7 +54,7 @@ public class PrimaryController {
 
     @FXML
     private void switchToSecondary() throws IOException {
-        App.setRoot("secondary");
+        CalculatorApp.setRoot("secondary");
     }
 
     private boolean authorizeUser(String userName, String userPassword) {

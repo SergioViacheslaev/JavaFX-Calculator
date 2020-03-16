@@ -36,7 +36,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.1</version>
                 <configuration>
-                    <mainClass>org.home.calculator.App</mainClass>
+                    <mainClass>org.home.calculator.CalculatorApp</mainClass>
 <!--                    <executable>/Library/Java/JavaVirtualMachines/openjdk-12.0.2.jdk/Contents/Home/bin/java</executable>-->
                 </configuration>
             </plugin>
