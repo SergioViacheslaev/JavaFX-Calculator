@@ -19,11 +19,12 @@ public class CalculatorApp extends Application {
 
     @Override
     public void start(Stage stage) throws IOException {
-        scene = new Scene(loadFXML("primary"));
+        scene = new Scene(loadFXML("calculator"));
         stage.setScene(scene);
         stage.getIcons().add(new Image("static/images/logo.png"));
-        stage.setResizable(false);
         stage.setTitle(APP_NAME);
+        stage.setMaxWidth(768);
+        stage.setMaxHeight(1024);
         stage.show();
     }
 
