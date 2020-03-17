@@ -4,10 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import org.home.calculator.model.Calculation;
+import javafx.scene.layout.GridPane;
 
+import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import static org.home.calculator.model.CalculationOperations.*;
 
 public class CalculatorController {
 
@@ -18,16 +21,17 @@ public class CalculatorController {
     private URL location;
 
     @FXML
+    private GridPane calculatorControlsMenu;
+
+    @FXML
     private TextField resultField;
-    private Calculation calculation;
     private boolean start = false;
-    private long number1 = 0L;
-    private String operator = "";
-    private String previousResult = "";
+    private BigDecimal number1 = BigDecimal.ZERO;
+    private String calculateOperator;
 
     @FXML
     void initialize() {
-        calculation = new Calculation();
+
     }
 
 
@@ -44,25 +48,35 @@ public class CalculatorController {
         }
     }
 
-
-
+    /**
+     * Handles 'ON / C' button action
+     *
+     * @param event
+     */
     @FXML
-    void processControls(ActionEvent event) {
-        String controlButtonName = ((Button) event.getSource()).getText();
-
-        switch (controlButtonName) {
-            case "ON / C":
-                cleanAllResults();
-                break;
-            case ",":
-                resultField.setText(resultField.getText() + ",");
-            default:
-                break;
-        }
+    void handleClearAllDataAction(ActionEvent event) {
+        resultField.setText("0");
+        start = true;
+        number1 = new BigDecimal("0");
     }
 
+    /**
+     * Handles coma input button action
+     *
+     * @param event
+     */
     @FXML
-    void processNumbers(ActionEvent event) {
+    void handlePointAction(ActionEvent event) {
+        resultField.setText(resultField.getText() + ".");
+    }
+
+    /**
+     * Handles digits user's choice
+     *
+     * @param event
+     */
+    @FXML
+    void handleDigitsAction(ActionEvent event) {
         if (start) {
             resultField.setText("");
             start = false;
@@ -72,39 +86,60 @@ public class CalculatorController {
         resultField.setText(resultField.getText() + buttonNumber.getText());
     }
 
+    /**
+     * Handles operations ('*','/','+','-','=') actions
+     *
+     * @param event
+     */
     @FXML
-    void processOperators(ActionEvent event) {
+    void handleOperationsAction(ActionEvent event) {
         String currentOperator = ((Button) event.getSource()).getText();
 
         if (!currentOperator.equals("=")) {
-            operator = currentOperator;
-            number1 = Long.parseLong(resultField.getText());
+            calculateOperator = currentOperator;
+            number1 = new BigDecimal(resultField.getText());
             start = true;
         } else {
-            if (!operator.equals("")) {
-                long number2 = Long.parseLong(resultField.getText());
+            BigDecimal number2 = new BigDecimal(resultField.getText());
 
-                if (operator.equals("/") && number2 == 0) {
-                    resultField.setText("На ноль делить нельзя !");
-                    return;
-                }
-
-
-                long calcResult = calculation.compute(number1, number2, operator);
-                resultField.setText(String.valueOf(calcResult));
+            if (calculateOperator.equals("÷") && number2.intValue() == 0) {
+                resultField.setText("На ноль делить нельзя !");
+                start = true;
+                number1 = BigDecimal.ZERO;
+                return;
             }
-
+            resultField.setText(executeCalculation(number1, number2).stripTrailingZeros().toPlainString());
         }
-
-
     }
 
+    private BigDecimal executeCalculation(BigDecimal number1, BigDecimal number2) {
+        BigDecimal result = new BigDecimal(0);
 
-    private void cleanAllResults() {
-        resultField.setText("0");
-        start = true;
-        operator = "";
+        if (calculateOperator.equals("÷")) {
+            result = DIVIDE.compute(number1, number2);
+        }
+
+        if (calculateOperator.equals("*")) {
+            result = MULTIPLY.compute(number1, number2);
+        }
+
+        if (calculateOperator.equals("+")) {
+            result = ADD.compute(number1, number2);
+        }
+
+        if (calculateOperator.equals("-")) {
+            result = SUBTRACT.compute(number1, number2);
+        }
+
+        return result;
+
     }
 
 
 }
+
+
+
+
+
+

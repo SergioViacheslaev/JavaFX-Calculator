@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<VBox maxHeight="400.0" maxWidth="500.0" minHeight="234.0" minWidth="373.0" prefHeight="370.0" prefWidth="373.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.home.calculator.controllers.CalculatorController">
+<VBox maxHeight="486.0" maxWidth="537.0" minHeight="234.0" minWidth="319.0" prefHeight="450.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.home.calculator.controllers.CalculatorController">
    <children>
       <MenuBar prefHeight="12.0" prefWidth="431.0">
          <menus>
@@ -28,7 +28,7 @@
             </TextField>
          </children>
       </AnchorPane>
-      <GridPane prefHeight="286.0" prefWidth="581.0" VBox.vgrow="ALWAYS">
+      <GridPane fx:id="calculatorControlsMenu" prefHeight="286.0" prefWidth="581.0" VBox.vgrow="ALWAYS">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
           <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -43,7 +43,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processOperators" text="*" GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleOperationsAction" text="*" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -51,7 +51,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="4" GridPane.rowIndex="2">
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="4" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -59,7 +59,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="5" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -67,7 +67,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="40.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Button layoutX="10.0" layoutY="40.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="8" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -75,7 +75,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="9" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="9" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -83,7 +83,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="188.0" layoutY="40.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="6" GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <Button layoutX="188.0" layoutY="40.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="6" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -91,7 +91,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="1" GridPane.rowIndex="3">
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -99,7 +99,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="2" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="2" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -107,7 +107,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="3" GridPane.columnIndex="2" GridPane.rowIndex="3">
+            <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="3" GridPane.columnIndex="2" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -115,7 +115,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="70.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <Button layoutX="10.0" layoutY="70.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -123,7 +123,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processControls" text="," GridPane.columnIndex="2" GridPane.rowIndex="4">
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handlePointAction" text="." GridPane.columnIndex="2" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -131,7 +131,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="277.0" layoutY="100.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processNumbers" text="7" GridPane.rowIndex="1">
+            <Button layoutX="277.0" layoutY="100.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleDigitsAction" text="7" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -139,7 +139,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processOperators" text="-" GridPane.columnIndex="3" GridPane.rowIndex="3">
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleOperationsAction" text="-" GridPane.columnIndex="3" GridPane.rowIndex="3">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -147,7 +147,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processOperators" text="+" GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleOperationsAction" text="+" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -155,7 +155,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processOperators" prefHeight="168.0" prefWidth="142.0" text="=" GridPane.columnIndex="3" GridPane.rowIndex="4">
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleOperationsAction" prefHeight="168.0" prefWidth="142.0" text="=" GridPane.columnIndex="3" GridPane.rowIndex="4">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -163,7 +163,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="66.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processControls" text="ON / C">
+            <Button layoutX="10.0" layoutY="66.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleClearAllDataAction" text="ON / C">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
@@ -179,7 +179,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="277.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processOperators" text="÷" GridPane.columnIndex="3">
+            <Button layoutX="277.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleOperationsAction" text="÷" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>

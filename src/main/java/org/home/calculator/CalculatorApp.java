@@ -23,6 +23,9 @@ public class CalculatorApp extends Application {
         stage.setScene(scene);
         stage.getIcons().add(new Image("static/images/logo.png"));
         stage.setTitle(APP_NAME);
+
+        stage.setMinWidth(420);
+        stage.setMinHeight(450);
         stage.setMaxWidth(768);
         stage.setMaxHeight(1024);
         stage.show();
