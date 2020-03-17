@@ -2,6 +2,7 @@ package org.home.calculator.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -58,10 +59,14 @@ public class CalculatorController {
         resultField.setText("0");
         start = true;
         number1 = new BigDecimal("0");
+        for (Node child : calculatorControlsMenu.getChildren()) {
+            child.setDisable(false);
+        }
+
     }
 
     /**
-     * Handles coma input button action
+     * Handles point input button action
      *
      * @param event
      */
@@ -103,9 +108,11 @@ public class CalculatorController {
             BigDecimal number2 = new BigDecimal(resultField.getText());
 
             if (calculateOperator.equals("÷") && number2.intValue() == 0) {
-                resultField.setText("На ноль делить нельзя !");
                 start = true;
                 number1 = BigDecimal.ZERO;
+                //todo: Дописать логику блокировки кнопок при ошибке
+                showErrorMessage("На ноль делить нельзя !");
+//                calculatorControlsMenu.setVisible(false);
                 return;
             }
             resultField.setText(executeCalculation(number1, number2).stripTrailingZeros().toPlainString());
@@ -132,6 +139,17 @@ public class CalculatorController {
         }
 
         return result;
+
+    }
+
+    private void showErrorMessage(String message) {
+        resultField.setText(message);
+        for (Node child : calculatorControlsMenu.getChildren()) {
+            if (!(child.getId() != null && child.getId().equals("clearAllButton"))) {
+                child.setDisable(true);
+            }
+        }
+
 
     }
 

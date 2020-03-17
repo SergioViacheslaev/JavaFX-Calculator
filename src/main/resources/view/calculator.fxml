@@ -163,7 +163,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="66.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleClearAllDataAction" text="ON / C">
+            <Button fx:id="clearAllButton" layoutX="10.0" layoutY="66.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleClearAllDataAction" text="ON / C">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
