@@ -171,7 +171,7 @@
                   <Font name="DejaVu Serif Condensed Bold" size="18.0" />
                </font>
             </Button>
-            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#processControls" text="⌫" GridPane.columnIndex="2">
+            <Button layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleBackspaceAction" text="⌫" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets top="1.0" />
                </GridPane.margin>
