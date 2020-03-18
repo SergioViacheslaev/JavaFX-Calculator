@@ -70,10 +70,9 @@ public class CalculatorController implements Observable {
     @FXML
     void showMenuAbout(ActionEvent event) {
         try {
-
             Stage stage = new Stage();
             Parent root = FXMLLoader.load(getClass().getResource("/view/menuAbout.fxml"));
-            stage.setTitle("Разработчик");
+            stage.setTitle(appConfig.getBundle().getString("menu.about"));
             stage.setMinHeight(250);
             stage.setMinWidth(300);
             stage.setResizable(false);
