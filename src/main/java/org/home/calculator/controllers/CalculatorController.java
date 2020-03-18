@@ -23,8 +23,10 @@ public class CalculatorController {
     private GridPane calculatorControlsMenu;
     @FXML
     private TextField resultField;
-    private boolean start = false;
+    private boolean startDigitInput = false;
     private BigDecimal number1 = BigDecimal.ZERO;
+    private BigDecimal number2;
+    private String calculatedResult = "";
     private String calculateOperator = "";
 
     @FXML
@@ -46,6 +48,7 @@ public class CalculatorController {
 
     /**
      * Handles 'ON / C' button action
+     * Clears all memory.
      * Removes focus from button.
      *
      * @param event
@@ -54,8 +57,10 @@ public class CalculatorController {
     void handleClearAllDataAction(ActionEvent event) {
         resultField.setText("0");
         calculateOperator = "";
-        start = true;
+        calculatedResult = "";
         number1 = new BigDecimal("0");
+        number2 = new BigDecimal("0");
+        startDigitInput = true;
         for (Node child : calculatorControlsMenu.getChildren()) {
             child.setDisable(false);
         }
@@ -80,9 +85,9 @@ public class CalculatorController {
      */
     @FXML
     void handleDigitsAction(ActionEvent event) {
-        if (start) {
+        if (startDigitInput) {
             resultField.setText("");
-            start = false;
+            startDigitInput = false;
         }
 
         Button buttonNumber = (Button) event.getSource();
@@ -91,6 +96,7 @@ public class CalculatorController {
 
     /**
      * Handles operations ('*','/','+','-','=') actions
+     * Every user's new input digit determines by 'startDigitInput' flag.
      *
      * @param event
      */
@@ -98,23 +104,36 @@ public class CalculatorController {
     void handleOperationsAction(ActionEvent event) {
         String currentOperator = ((Button) event.getSource()).getText();
 
+        //Saving number1, when user chooses operator
         if (!"=".equals(currentOperator)) {
             calculateOperator = currentOperator;
             number1 = new BigDecimal(resultField.getText());
-            start = true;
+            startDigitInput = true;
+            calculatedResult = "";
         } else {
-            if (!calculateOperator.isEmpty()) {
-                BigDecimal number2 = new BigDecimal(resultField.getText());
+            //Saving number2 and operation result
+            if (!calculateOperator.isEmpty() && calculatedResult.isEmpty()) {
+                number2 = new BigDecimal(resultField.getText());
 
                 if ("÷".equals(calculateOperator) && number2.intValue() == 0) {
-                    start = true;
+                    startDigitInput = true;
                     number1 = BigDecimal.ZERO;
                     showErrorMessage("На ноль делить нельзя !");
                     blockControlsPane(calculatorControlsMenu);
                     return;
                 }
-                resultField.setText(executeCalculation(number1, number2).stripTrailingZeros().toPlainString());
+
+                calculatedResult = executeCalculation(number1, number2).stripTrailingZeros().toPlainString();
             }
+            //If we have result
+            else if (!calculatedResult.isEmpty()) {
+                BigDecimal previousResult = new BigDecimal(calculatedResult);
+                calculatedResult = executeCalculation(previousResult, number2).stripTrailingZeros().toPlainString();
+            } else {
+                return;
+            }
+
+            resultField.setText(calculatedResult);
         }
     }
 
