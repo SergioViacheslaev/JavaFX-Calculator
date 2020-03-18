@@ -3,22 +3,16 @@ package org.home.calculator.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.Stage;
-import org.home.calculator.button.CalculatorButton;
-import org.home.calculator.button.KeyboardShortcut;
 
 import java.math.BigDecimal;
 
 import static org.home.calculator.model.CalculationOperations.*;
 
 public class CalculatorController {
-    private static final String APP_NAME = "JavaFX Calculator";
     @FXML
     private GridPane calculatorControlsMenu;
     @FXML
@@ -29,9 +23,6 @@ public class CalculatorController {
     private String calculatedResult = "";
     private String calculateOperator = "";
 
-    @FXML
-    void initialize() {
-    }
 
     /**
      * Handles backspace button action.
@@ -160,39 +151,6 @@ public class CalculatorController {
 
     }
 
-
-    public void initStageParams(Stage primaryStage) {
-        Scene scene = primaryStage.getScene();
-        primaryStage.getIcons().add(new Image("static/images/logo.png"));
-        primaryStage.setTitle(APP_NAME);
-        primaryStage.setMinWidth(420);
-        primaryStage.setMinHeight(450);
-        primaryStage.setMaxWidth(768);
-        primaryStage.setMaxHeight(1024);
-
-        setUpCalculatorButtons(scene);
-        initKeyboardShortcutListeners(scene);
-    }
-
-    /**
-     * Initializes Keyboard shortcuts
-     *
-     * @param scene current scene
-     */
-    private void initKeyboardShortcutListeners(Scene scene) {
-        scene.setOnKeyPressed(KeyboardShortcut::findAncExecuteKey);
-    }
-
-    /**
-     * Set Javafx node button to enum
-     *
-     * @param scene current scene
-     */
-    private void setUpCalculatorButtons(Scene scene) {
-        for (CalculatorButton cb : CalculatorButton.values()) {
-            cb.setButton((Button) scene.lookup("#" + cb.name().toLowerCase()));
-        }
-    }
 
     private void showErrorMessage(String message) {
         resultField.setText(message);
