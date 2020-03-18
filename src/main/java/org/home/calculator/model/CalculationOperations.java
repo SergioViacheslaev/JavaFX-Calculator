@@ -3,9 +3,6 @@ package org.home.calculator.model;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-/**
- * @author Sergei Viacheslaev
- */
 public enum CalculationOperations {
     ADD {
         @Override

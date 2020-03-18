@@ -3,38 +3,33 @@ package org.home.calculator.controllers;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import org.home.calculator.button.CalculatorButton;
+import org.home.calculator.button.KeyboardShortcut;
 
 import java.math.BigDecimal;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import static org.home.calculator.model.CalculationOperations.*;
 
 public class CalculatorController {
-
-    @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
+    private static final String APP_NAME = "JavaFX Calculator";
     @FXML
     private GridPane calculatorControlsMenu;
-
     @FXML
     private TextField resultField;
     private boolean start = false;
     private BigDecimal number1 = BigDecimal.ZERO;
-    private String calculateOperator;
+    private String calculateOperator = "";
 
     @FXML
     void initialize() {
-
     }
-
 
     /**
      * Handles backspace button action.
@@ -51,18 +46,19 @@ public class CalculatorController {
 
     /**
      * Handles 'ON / C' button action
+     * Removes focus from button.
      *
      * @param event
      */
     @FXML
     void handleClearAllDataAction(ActionEvent event) {
         resultField.setText("0");
+        calculateOperator = "";
         start = true;
         number1 = new BigDecimal("0");
         for (Node child : calculatorControlsMenu.getChildren()) {
             child.setDisable(false);
         }
-
     }
 
     /**
@@ -72,7 +68,9 @@ public class CalculatorController {
      */
     @FXML
     void handlePointAction(ActionEvent event) {
-        resultField.setText(resultField.getText() + ".");
+        if (!resultField.getText().contains(".")) {
+            resultField.setText(resultField.getText() + ".");
+        }
     }
 
     /**
@@ -100,22 +98,23 @@ public class CalculatorController {
     void handleOperationsAction(ActionEvent event) {
         String currentOperator = ((Button) event.getSource()).getText();
 
-        if (!currentOperator.equals("=")) {
+        if (!"=".equals(currentOperator)) {
             calculateOperator = currentOperator;
             number1 = new BigDecimal(resultField.getText());
             start = true;
         } else {
-            BigDecimal number2 = new BigDecimal(resultField.getText());
+            if (!calculateOperator.isEmpty()) {
+                BigDecimal number2 = new BigDecimal(resultField.getText());
 
-            if (calculateOperator.equals("÷") && number2.intValue() == 0) {
-                start = true;
-                number1 = BigDecimal.ZERO;
-                //todo: Дописать логику блокировки кнопок при ошибке
-                showErrorMessage("На ноль делить нельзя !");
-//                calculatorControlsMenu.setVisible(false);
-                return;
+                if ("÷".equals(calculateOperator) && number2.intValue() == 0) {
+                    start = true;
+                    number1 = BigDecimal.ZERO;
+                    showErrorMessage("На ноль делить нельзя !");
+                    blockControlsPane(calculatorControlsMenu);
+                    return;
+                }
+                resultField.setText(executeCalculation(number1, number2).stripTrailingZeros().toPlainString());
             }
-            resultField.setText(executeCalculation(number1, number2).stripTrailingZeros().toPlainString());
         }
     }
 
@@ -142,17 +141,56 @@ public class CalculatorController {
 
     }
 
+
+    public void initStageParams(Stage primaryStage) {
+        Scene scene = primaryStage.getScene();
+        primaryStage.getIcons().add(new Image("static/images/logo.png"));
+        primaryStage.setTitle(APP_NAME);
+        primaryStage.setMinWidth(420);
+        primaryStage.setMinHeight(450);
+        primaryStage.setMaxWidth(768);
+        primaryStage.setMaxHeight(1024);
+
+        setUpCalculatorButtons(scene);
+        initKeyboardShortcutListeners(scene);
+    }
+
+    /**
+     * Initializes Keyboard shortcuts
+     *
+     * @param scene current scene
+     */
+    private void initKeyboardShortcutListeners(Scene scene) {
+        scene.setOnKeyPressed(KeyboardShortcut::findAncExecuteKey);
+    }
+
+    /**
+     * Set Javafx node button to enum
+     *
+     * @param scene current scene
+     */
+    private void setUpCalculatorButtons(Scene scene) {
+        for (CalculatorButton cb : CalculatorButton.values()) {
+            cb.setButton((Button) scene.lookup("#" + cb.name().toLowerCase()));
+        }
+    }
+
     private void showErrorMessage(String message) {
         resultField.setText(message);
-        for (Node child : calculatorControlsMenu.getChildren()) {
-            if (!(child.getId() != null && child.getId().equals("clearAllButton"))) {
+    }
+
+    /**
+     * Disables all controls buttons, besides 'ON/C' button.
+     *
+     * @param pane
+     */
+    private void blockControlsPane(Pane pane) {
+        for (Node child : pane.getChildren()) {
+            if (!(child.getId() != null && child.getId().equals("clear_all"))) {
                 child.setDisable(true);
             }
         }
-
-
     }
-
 
 }
 
