@@ -39,10 +39,15 @@ public class CalculatorApp extends Application implements Observer {
         controller.setAppConfig(appConfig);
         controller.addObserver(this);
 
-
         primaryStage.show();
     }
 
+
+    /**Invokes when user changes language.
+     *
+     * @param o
+     * @param arg
+     */
     @SneakyThrows
     @Override
     public void update(Observable o, Object arg) {

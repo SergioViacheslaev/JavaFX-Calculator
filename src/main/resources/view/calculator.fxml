@@ -18,7 +18,10 @@
                   </Menu>
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="%menu.about" />
+            <Menu mnemonicParsing="false" text="%menu.help">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#showMenuAbout" text="%menu.about" />
+               </items></Menu>
          </menus>
       </MenuBar>
       <AnchorPane prefHeight="61.0" prefWidth="450.0">

@@ -2,17 +2,23 @@ package org.home.calculator.controllers;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
 import org.home.calculator.api.Observable;
 import org.home.calculator.api.Observer;
 import org.home.calculator.config.AppConfig;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -59,6 +65,25 @@ public class CalculatorController implements Observable {
     @FXML
     void languageMenuRussianAction(ActionEvent event) {
         notifyObservers("ru");
+    }
+
+    @FXML
+    void showMenuAbout(ActionEvent event) {
+        try {
+
+            Stage stage = new Stage();
+            Parent root = FXMLLoader.load(getClass().getResource("/view/menuAbout.fxml"));
+            stage.setTitle("Разработчик");
+            stage.setMinHeight(250);
+            stage.setMinWidth(300);
+            stage.setResizable(false);
+            stage.setScene(new Scene(root));
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
