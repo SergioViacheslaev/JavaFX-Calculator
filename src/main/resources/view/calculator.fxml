@@ -8,12 +8,17 @@
    <children>
       <MenuBar prefHeight="12.0" prefWidth="431.0">
          <menus>
-            <Menu mnemonicParsing="false" text="Настройки">
+            <Menu mnemonicParsing="false" text="%menu.settings">
                <items>
-                  <MenuItem mnemonicParsing="false" text="Язык" />
+                  <Menu mnemonicParsing="false" text="%menu.language">
+                     <items>
+                        <MenuItem mnemonicParsing="false" onAction="#languageMenuEnglishAction" text="%language.en" />
+                        <MenuItem mnemonicParsing="false" onAction="#languageMenuRussianAction" text="%language.ru" />
+                     </items>
+                  </Menu>
                </items>
             </Menu>
-            <Menu mnemonicParsing="false" text="О программе" />
+            <Menu mnemonicParsing="false" text="%menu.about" />
          </menus>
       </MenuBar>
       <AnchorPane prefHeight="61.0" prefWidth="450.0">

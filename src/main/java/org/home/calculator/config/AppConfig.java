@@ -17,24 +17,34 @@ import java.util.ResourceBundle;
 @Getter
 @Setter
 public class AppConfig {
-    private final ResourceBundle bundle;
-    private String appTitle;
+    private ResourceBundle bundle;
 
     public AppConfig(ResourceBundle bundle) {
         this.bundle = bundle;
-        this.appTitle = bundle.getString("appTitle");
+    }
+
+    public void applyConfig(Stage primaryStage) {
+        initStageParams(primaryStage);
+        initStageListeners(primaryStage);
     }
 
 
-    public void initStageParamsAndListeners(Stage primaryStage) {
-        Scene scene = primaryStage.getScene();
+    public void initStageParams(Stage primaryStage) {
         primaryStage.getIcons().add(new Image("static/images/logo.png"));
         primaryStage.setMinWidth(420);
         primaryStage.setMinHeight(450);
         primaryStage.setMaxWidth(768);
         primaryStage.setMaxHeight(1024);
-        primaryStage.setTitle(appTitle);
+        primaryStage.setTitle(bundle.getString("appTitle"));
 
+    }
+
+    public String getDivideByZeroErrorMessage() {
+        return bundle.getString("divideByZeroError");
+    }
+
+    private void initStageListeners(Stage primaryStage) {
+        Scene scene = primaryStage.getScene();
         setUpCalculatorButtons(scene);
         initKeyboardShortcutListeners(scene);
     }
@@ -59,5 +69,6 @@ public class AppConfig {
             cb.setButton((Button) scene.lookup("#" + cb.name().toLowerCase()));
         }
     }
+
 
 }
