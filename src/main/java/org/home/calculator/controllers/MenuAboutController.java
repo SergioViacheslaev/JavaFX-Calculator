@@ -18,9 +18,13 @@ public class MenuAboutController {
         String java_version = System.getProperties().getProperty("java.version");
         String os_name = System.getProperties().getProperty("os.name");
         String os_version = System.getProperties().getProperty("os.version");
+        String encoding = System.getProperty("file.encoding");
 
-        system_info.setText(String.format("OS: %s %s%n%s",
-                os_name, os_version, String.format("Java: %s %s%n", java_runtime, java_version)));
+        system_info.setText(String.format("OS: %s %s%n%s%s",
+                os_name,
+                os_version,
+                String.format("Java: %s %s%n", java_runtime, java_version),
+                String.format("Encoding: %s", encoding)));
 
     }
 }
